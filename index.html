@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Per Day</title>
+</head>
+
+<style>
+    .p-1 {
+        padding: 3px;
+    }
+
+    .mb-1 {
+        margin-bottom: 3px;
+    }
+
+    .mx-1 {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .line-through {
+        text-decoration: line-through;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+</style>
+
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+    <div id="app">
+        <div class="container">
+            <div class="p-1 mb-1">
+                <input v-model="inputValue" type="text" placeholder="Item description">
+                <button @click="addNewItem" class="mx-1">Add</button>
+            </div>
+            <div class="mx-1 mb-1" v-for="(day, _index) in days">
+                <h3 v-html="day.title"></h3>
+                <div class="mb-1" v-for="(item, index) in day.items">
+                    <input @blur="saveCurrentItems" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked">
+                    <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index" v-html="item.description"></label>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        const appConfig = {
+            data() {
+                return {
+                    inputValue: "",
+                    days: [
+                        {
+                            title: "3/7/2022",
+                            items: [
+                                { description: "First task", complete: false }
+                            ]
+                        },
+                        {
+                            title: "2/7/2022",
+                            items: [
+                                { description: "Second task", complete: true },
+                                { description: "Third task", complete: false }
+                            ]
+                        }
+                    ]
+                }
+            },
+            mounted() {
+                try {
+                    const currentLocalContent = JSON.parse(localStorage.days)
+    
+                    if (!Array.isArray(currentLocalContent)) {
+                        localStorage.days = JSON.stringify([])
+                    }
+                } catch (e) {
+                    localStorage.days = JSON.stringify([])
+                }
+                
+                this.days = JSON.parse(localStorage.days)
+            },
+            methods: {
+                addNewItem() {
+                    const today = new Date(Date.now())
+                    const key = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`
+
+                    var currentDay = this.days.find(t => t.title === key)
+
+                    if (currentDay === undefined) {
+                        const content = {
+                            title: key,
+                            items: []
+                        }
+
+                        this.days.push(content)
+                    }
+
+                    const index = this.days.findIndex(t => t.title == key)
+
+                    if (index == -1) {
+                        throw "Index out of bound."
+                    }
+
+                    const day = this.days[index]
+
+                    const item = {
+                        description: this.inputValue,
+                        complete: false
+                    }
+
+                    day.items.push(item)
+
+                    this.inputValue = ""
+
+                    this.saveCurrentDays()
+                },
+                saveCurrentDays() {
+                    localStorage.days = JSON.stringify(this.days)
+                }
+            }
+        }
+
+        createApp(appConfig).mount('#app')
+    </script>
+</body>
+
+</html>
