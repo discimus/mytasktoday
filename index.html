@@ -43,7 +43,7 @@
             <div class="mx-1 mb-1" v-for="(day, _index) in days">
                 <h3 v-html="day.title"></h3>
                 <div class="mb-1" v-for="(item, index) in day.items">
-                    <input @blur="saveCurrentItems" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked">
+                    <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked">
                     <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index" v-html="item.description"></label>
                 </div>
                 <hr>
