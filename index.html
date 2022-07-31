@@ -49,7 +49,7 @@
                 <input v-model="inputValue" type="text" placeholder="Item description" class="w-100">
                 <button @click="addNewItem" class="mx-1">Add</button>
             </div>
-            <div class="mx-1 mb-1" v-for="(day, _index) in days">
+            <div class="mx-1 mb-1" v-for="(day, _index) in reverseDays">
                 <h3 v-html="day.title"></h3>
                 <div class="mb-1" v-for="(item, index) in day.items">
                     <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked">
@@ -67,21 +67,7 @@
             data() {
                 return {
                     inputValue: "",
-                    days: [
-                        {
-                            title: "3/7/2022",
-                            items: [
-                                { description: "First task", complete: false }
-                            ]
-                        },
-                        {
-                            title: "2/7/2022",
-                            items: [
-                                { description: "Second task", complete: true },
-                                { description: "Third task", complete: false }
-                            ]
-                        }
-                    ]
+                    days: [{"title":"8/7/2022","items":[{"description":"subir meu app no github pages","complete":false,"checked":true},{"description":"mostrar pros caras","complete":false,"checked":true},{"description":"ouvir uma música","complete":false,"checked":true},{"description":"assistir video sobre redes do Akita","complete":false,"checked":true}]},{"title":"9/7/2022","items":[{"description":"assistir um vídeo do desenvolvedor.io","complete":false,"checked":true}]},{"title":"30/7/2022","items":[{"description":"libs monogame: https://github.com/aloisdeniel/awesome-monogame","complete":false,"checked":true},{"description":" MonoGame Tutorial 001 - Drawing a Sprite ","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-getting-started-tutorials","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/introduction-to-monogame","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/setting-up-monogame","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-project-template","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-managing-content","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-2d-tutorials","complete":false},{"description":"http://rbwhitaker.wikidot.com/monogame-introduction-to-2d-graphics","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-spritebatch-basics","complete":false}]}]
                 }
             },
             mounted() {
@@ -96,6 +82,11 @@
                 }
                 
                 this.days = JSON.parse(localStorage.days)
+            },
+            computed: {
+                reverseDays() {
+                    return this.days.reverse()
+                }
             },
             methods: {
                 addNewItem() {
