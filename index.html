@@ -5,64 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/style.css">
     <title>MyTaskToday</title>
 </head>
 
-<style>
-    .dark {
-        background-color: black;
-        color: white;
-    }
-
-    .p-1 {
-        padding: 3px;
-    }
-
-    .mb-1 {
-        margin-bottom: 3px;
-    }
-
-    .mx-1 {
-        margin-left: 3px;
-        margin-right: 3px;
-    }
-
-    .w-100 {
-        width: 100%;
-    }
-
-    .d-flex {
-        display: flex;
-        flex-flow: row nowrap;
-    }
-
-    .line-through {
-        text-decoration: line-through;
-    }
-
-    .container {
-        max-width: 600px;
-        margin: auto;
-    }
-</style>
-
-<body class="dark">
+<body>
     <script src="https://unpkg.com/vue@3"></script>
     <div id="app">
-        <div class="container">
-            <div class="p-1 mb-1 d-flex">
-                <input v-model="inputValue" type="text" placeholder="Item description" class="w-100">
-                <button @click="addNewItem" class="mx-1">Add</button>
-            </div>
-            <div class="mx-1 mb-1" v-for="(day, _index) in reverseDays">
-                <h3 v-html="day.title"></h3>
-                <div class="mb-1" v-for="(item, index) in day.items">
-                    <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked">
-                    <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index" v-html="item.description"></label>
+        <div class="absolute h-full w-full bg-gray-700">
+            <div class="m-auto max-w-lg">
+                <div class="my-2 flex">
+                    <div class="flex-grow">
+                        <input v-model="inputValue" type="text" placeholder="Item description"
+                            class="w-full rounded-xl px-4 py-2 text-lg outline-none focus:shadow-md hover:shadow-md shadow-sm" />
+                    </div>
+                    <button @click="addNewItem"
+                        class="mx-2 rounded-xl bg-black px-4 text-white shadow-sm hover:shadow-md active:shadow-none">Add</button>
                 </div>
-                <hr>
+                <div class="mb-1 text-white" v-for="(day, _index) in reverseDays">
+                    <span class="text-xl my-2" v-html="day.title"></span>
+                    <div class="mb-1 gap-2 flex items-baseline" v-for="(item, index) in day.items">
+                        <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item"
+                            :id="'item-'+_index+'-'+index" :checked="item.checked" />
+                        <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index"
+                            v-html="item.description" class="hover:text-blue-200">item_description</label>
+                    </div>
+                    <hr class="border-t-2 border-t-black" />
+                </div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -72,20 +44,20 @@
             data() {
                 return {
                     inputValue: "",
-                    days: [{"title":"8/7/2022","items":[{"description":"subir meu app no github pages","complete":false,"checked":true},{"description":"mostrar pros caras","complete":false,"checked":true},{"description":"ouvir uma música","complete":false,"checked":true},{"description":"assistir video sobre redes do Akita","complete":false,"checked":true}]},{"title":"9/7/2022","items":[{"description":"assistir um vídeo do desenvolvedor.io","complete":false,"checked":true}]},{"title":"30/7/2022","items":[{"description":"libs monogame: https://github.com/aloisdeniel/awesome-monogame","complete":false,"checked":true},{"description":" MonoGame Tutorial 001 - Drawing a Sprite ","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-getting-started-tutorials","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/introduction-to-monogame","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/setting-up-monogame","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-project-template","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-managing-content","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-2d-tutorials","complete":false},{"description":"http://rbwhitaker.wikidot.com/monogame-introduction-to-2d-graphics","complete":false,"checked":true},{"description":"http://rbwhitaker.wikidot.com/monogame-spritebatch-basics","complete":false}]}]
+                    days: [{ "title": "8/7/2022", "items": [{ "description": "subir meu app no github pages", "complete": false, "checked": true }, { "description": "mostrar pros caras", "complete": false, "checked": true }, { "description": "ouvir uma música", "complete": false, "checked": true }, { "description": "assistir video sobre redes do Akita", "complete": false, "checked": true }] }, { "title": "9/7/2022", "items": [{ "description": "assistir um vídeo do desenvolvedor.io", "complete": false, "checked": true }] }, { "title": "30/7/2022", "items": [{ "description": "libs monogame: https://github.com/aloisdeniel/awesome-monogame", "complete": false, "checked": true }, { "description": " MonoGame Tutorial 001 - Drawing a Sprite ", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/monogame-getting-started-tutorials", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/introduction-to-monogame", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/setting-up-monogame", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/monogame-project-template", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/monogame-managing-content", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/monogame-2d-tutorials", "complete": false }, { "description": "http://rbwhitaker.wikidot.com/monogame-introduction-to-2d-graphics", "complete": false, "checked": true }, { "description": "http://rbwhitaker.wikidot.com/monogame-spritebatch-basics", "complete": false }] }]
                 }
             },
             mounted() {
                 try {
                     const currentLocalContent = JSON.parse(localStorage.days)
-    
+
                     if (!Array.isArray(currentLocalContent)) {
                         localStorage.days = JSON.stringify([])
                     }
                 } catch (e) {
                     localStorage.days = JSON.stringify([])
                 }
-                
+
                 this.days = JSON.parse(localStorage.days)
             },
             computed: {
@@ -97,7 +69,7 @@
             methods: {
                 addNewItem() {
                     const today = new Date(Date.now())
-                    const key = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`
+                    const key = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
 
                     var currentDay = this.days.find(t => t.title === key)
 
