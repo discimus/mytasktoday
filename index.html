@@ -90,7 +90,8 @@
             },
             computed: {
                 reverseDays() {
-                    return this.days.reverse()
+                    return this.days
+                        .sort((a, b) => Date.parse(b.title.replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3')) - Date.parse(a.title.replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3')))
                 }
             },
             methods: {
