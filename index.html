@@ -15,20 +15,25 @@
         <div class="m-auto max-w-xl p-2">
             <div class="my-2 flex gap-2">
                 <div class="flex-grow">
-                  <input v-model="inputValue" type="text" placeholder="Item description" class="w-full rounded-xl px-4 py-2 text-base shadow-sm outline-none hover:shadow-md focus:shadow-md" />
+                    <input v-model="inputValue" type="text" placeholder="Item description"
+                        class="w-full rounded-xl px-4 py-2 text-base shadow-sm outline-none hover:shadow-md focus:shadow-md" />
                 </div>
-                <button @click="addNewItem" class="rounded-xl bg-black px-4 text-white shadow-sm hover:shadow-md active:shadow-none">Add</button>
-              </div>
-              <div class="mb-1 text-white" v-for="(day, _index) in reverseDays">
+                <button @click="addNewItem"
+                    class="rounded-xl bg-black px-4 text-white shadow-sm hover:shadow-md active:shadow-none">Add</button>
+            </div>
+            <div class="mb-1 text-white" v-for="(day, _index) in reverseDays">
                 <span class="text-2xl" v-html="day.title">title_example</span>
                 <div class="mb-1 flex items-baseline gap-2" v-for="(item, index) in day.items">
-                  <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item" :id="'item-'+_index+'-'+index" :checked="item.checked" />
-                  <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index" v-html="item.description" class="hover:text-blue-200 active:sm:text-white">item_description</label>
+                    <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item"
+                        :id="'item-'+_index+'-'+index" :checked="item.checked" />
+                    <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index"
+                        v-html="item.description"
+                        class="hover:md:text-blue-200 active:md:text-white">item_description</label>
                 </div>
                 <hr class="border-t-2 border-t-black" />
-              </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script>
