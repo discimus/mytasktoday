@@ -21,14 +21,14 @@
                 <button @click="addNewItem"
                     class="rounded-xl bg-black px-4 text-white shadow-sm hover:shadow-md active:shadow-none">Add</button>
             </div>
-            <div class="mb-1 text-white" v-for="(day, _index) in reverseDays">
-                <span class="text-2xl" v-html="day.title">title_example</span>
-                <div class="mb-1 flex items-baseline gap-2" v-for="(item, index) in day.items">
+            <div v-for="(day, _index) in reverseDays" class="mb-1 text-white">
+                <span v-html="day.title" class="text-2xl"></span>
+                <div v-for="(item, index) in day.items" class="mb-1 flex items-baseline gap-2">
                     <input @blur="saveCurrentDays" v-model="item.checked" type="checkbox" name="item"
                         :id="'item-'+_index+'-'+index" :checked="item.checked" />
                     <label v-bind:class="{ 'line-through': item.checked }" :for="'item-'+_index+'-'+index"
                         v-html="item.description"
-                        class="hover:md:text-blue-200 active:md:text-white">item_description</label>
+                        class="hover:md:text-blue-200 active:md:text-white"></label>
                 </div>
                 <hr class="border-t-2 border-t-black" />
             </div>
