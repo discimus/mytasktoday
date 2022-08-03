@@ -70,6 +70,10 @@
                     const today = new Date(Date.now())
                     const key = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
 
+                    if (inputValue === "" || inputValue === undefined) {
+                        return;
+                    }
+
                     var currentDay = this.days.find(t => t.title === key)
 
                     if (currentDay === undefined) {
