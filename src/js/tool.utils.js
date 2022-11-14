@@ -1,4 +1,10 @@
 const utils = {
+    isNull(value) {
+        return value === null
+    },
+    isUndefined(value) {
+        return value === undefined
+    },
     getCurrentDate() {
         return new Date(Date.now())
     },

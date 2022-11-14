@@ -28,9 +28,13 @@ const repository = {
     ],
     startup() {
         try {
-            JSON.parse(localStorage[this.KEY_NAME])
+            const value = JSON.parse(localStorage.getItem(this.KEY_NAME))
+
+            if (utils.isNull(value) || utils.isUndefined(value)) {
+                throw new Error
+            }
         } catch {
-            localStorage[this.KEY_NAME] = JSON.stringify(this.DEFAULT_VALUES)
+            localStorage.setItem(this.KEY_NAME, JSON.stringify([]))
         }
     },
     drop() {
