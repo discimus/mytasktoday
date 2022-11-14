@@ -34,5 +34,21 @@ const service = {
 
         repository.save(this.app.tasks)
     },
+    verifyTaskConsistence(task) {
+        console.log(task.key);
+        if (!utils.isNull(task.title) || !utils.isUndefined(task.title)) {
+            const date = new Date(Date.parse(task.title))
+            task.key = date.toLocaleDateString("en-GB")
+            delete task.title
+        }
 
+        if (utils.isNull(task.locale) || utils.isUndefined(task.locale)) {
+            const date = new Date(Date.parse(task.key))
+            task.locale = date.toLocaleDateString("en-GB")
+        }
+    },
+    verifyTasksConsistense() {
+        this.app.tasks.forEach(this.verifyTaskConsistence)
+        repository.save(this.app.tasks)
+    }
 }

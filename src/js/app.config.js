@@ -8,6 +8,7 @@ const appConfig = {
     mounted() {
         repository.startup()
         service.app = this
+        service.verifyTasksConsistense()
     },
     computed: {
         tasksOrderedByReverseKeyDate() {
