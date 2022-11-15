@@ -24,26 +24,22 @@ const repository = {
                 { "description": "Review and maintain my browser task app", "checked": true }, 
                 { "description": "Buy a new book", "checked": true }
             ] 
-        }, 
+        }
     ],
     startup() {
         try {
-            const value = JSON.parse(localStorage.getItem(this.KEY_NAME))
-
-            if (utils.isNull(value) || utils.isUndefined(value)) {
-                throw new Error
-            }
+            JSON.parse(localStorage[this.KEY_NAME])
         } catch {
-            localStorage.setItem(this.KEY_NAME, JSON.stringify([]))
+            localStorage[this.KEY_NAME] = JSON.stringify([])
         }
     },
     drop() {
-        localStorage.removeItem(this.KEY_NAME)
+        delete localStorage[this.KEY_NAME]
     },
     save(values) {
-        localStorage.setItem(this.KEY_NAME, JSON.stringify(values))
+        localStorage[this.KEY_NAME] = JSON.stringify(values)
     },
     all() {
-        return JSON.parse(localStorage.getItem(this.KEY_NAME))
+        return JSON.parse(localStorage[this.KEY_NAME])
     }
 }

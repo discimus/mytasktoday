@@ -5,10 +5,11 @@ const appConfig = {
             tasks: repository.all()
         }
     },
-    mounted() {
+    beforeCreate() {
         repository.startup()
+    },
+    mounted() {
         service.app = this
-        service.verifyTasksConsistense()
     },
     computed: {
         tasksOrderedByReverseKeyDate() {
