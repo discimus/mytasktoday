@@ -9,7 +9,7 @@ const appConfig = {
         repository.startup()
     },
     mounted() {
-        service.app = this
+        service.useApp(this)
     },
     computed: {
         tasksOrderedByReverseKeyDate() {

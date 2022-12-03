@@ -1,5 +1,8 @@
 const service = {
-    app: null,
+    useApp(app) {
+        this.app = app
+        return this
+    },
     addTask() {
         const today = utils.getCurrentDate()
         const key = today.toLocaleDateString("en-US")
