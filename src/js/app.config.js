@@ -9,6 +9,8 @@ const appConfig = {
         repository.startup()
     },
     mounted() {
+        const inputUploadData = document.getElementById("input-to-upload-data")
+        inputUploadData.addEventListener("change", service.uploadData)
         service.useApp(this)
     },
     computed: {
@@ -22,6 +24,9 @@ const appConfig = {
         },
         persistCurrentAppState() {
             repository.save(this.tasks)
+        },
+        exportData() {
+            service.exportData()
         }
     }
 }
